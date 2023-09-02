@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todoapp/models/task_data.dart';
 
-class AddTaskScreen extends StatelessWidget {
+
+class AddTaskScreen extends StatefulWidget {
   const AddTaskScreen({super.key});
+  @override
+  State<AddTaskScreen> createState() => _AddTaskScreenState();
+}
 
+class _AddTaskScreenState extends State<AddTaskScreen> {
   @override
   Widget build(BuildContext context) {
+    String taskName='';
+    TextEditingController textEditingController=TextEditingController();
     return Container(
       color: const Color(0xff757575),
       child: Container(
@@ -37,7 +46,7 @@ class AddTaskScreen extends StatelessWidget {
               ),
               TextField(
                 autofocus: true,
-                onChanged: (value) {},
+                onChanged: (value) {taskName=value;},
                 textAlign: TextAlign.center,
               ),
               const SizedBox(
@@ -49,8 +58,12 @@ class AddTaskScreen extends StatelessWidget {
                   child: TextButton(
                     style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all(Colors.blueAccent)),
-                    onPressed: () {},
+                        MaterialStateProperty.all(Colors.blueAccent)),
+                    onPressed: () {
+                      Provider.of<TaskData>(context,listen: false).addTask(taskName);
+                      textEditingController.clear();
+                      Navigator.pop(context);
+                    },
                     child: const Text(
                       'Add',
                       style: TextStyle(fontSize: 20, color: Colors.white,fontWeight: FontWeight.w400),
@@ -64,4 +77,4 @@ class AddTaskScreen extends StatelessWidget {
       ),
     );
   }
-}
+  }

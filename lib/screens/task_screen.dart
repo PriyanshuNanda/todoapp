@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todoapp/widgets/tasks_list.dart';
 import 'package:todoapp/screens/add_taks_screen.dart';
+import 'package:todoapp/models/task_data.dart';
+
 
 class TaskScreen extends StatefulWidget {
   const TaskScreen({super.key});
@@ -10,7 +13,6 @@ class TaskScreen extends StatefulWidget {
 }
 
 class _TaskScreenState extends State<TaskScreen> {
-  int tasks = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +37,7 @@ class _TaskScreenState extends State<TaskScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
+             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20, top: 50),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,7 +59,7 @@ class _TaskScreenState extends State<TaskScreen> {
                         fontWeight: FontWeight.w700),
                   ),
                   Text(
-                    '$tasks tasks',
+                    '${Provider.of<TaskData>(context).lengthOfTask()} tasks',
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 30,
